@@ -1,0 +1,130 @@
+(
+   'NLFR_wiiv2'
+   (
+      'name'
+      "Fluttering Romance"
+   )
+   (
+      'artist'
+      "Nightmare Lyre"
+   )
+   ('master' 1)
+   (
+      'song'
+      (
+         'name'
+         "dlc/sZFE/052/content/songs/nlfr/nlfr"
+      )
+      (
+         'tracks_count'
+         (2 1 1 2 1 1)
+      )
+      (
+         'tracks'
+         (
+            (
+               'drum'
+               (0 1)
+            )
+            (
+               'bass'
+               (2)
+            )
+            (
+               'guitar'
+               (3)
+            )
+            (
+               'vocals'
+               (4 5)
+            )
+            (
+               'keys'
+               (6)
+            )
+         )
+      )
+      (
+         'pans'
+         (-1.00 1.00 0.00 -0.10 -1.00 1.00 0.00 -0.10)
+      )
+      (
+         'vols'
+         (-1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00 -1.00)
+      )
+      (
+         'cores'
+         (-1 -1 -1 -1 -1 -1 -1 -1)
+      )
+      ('vocal_parts' 3)
+      (
+         'drum_solo'
+         (
+            'seqs'
+            ('kick.cue' 'snare.cue' 'tom1.cue' 'tom2.cue' 'crash.cue')
+         )
+      )
+      (
+         'drum_freestyle'
+         (
+            'seqs'
+            ('kick.cue' 'snare.cue' 'hat.cue' 'ride.cue' 'crash.cue')
+         )
+      )
+      (mute_volume -96)
+      (mute_volume_vocals -12)
+      (hopo_threshold 170)
+   )
+   ('song_scroll_speed' 2300)
+   (
+      'bank'
+      "sfx/tambourine_bank.milo"
+   )
+   (drum_bank sfx/kit01_bank.milo)
+   ('anim_tempo' 32)
+   ('song_length' 253206)
+   ('preview' 90000 120000)
+   (
+      'rank'
+      ('drum' 448)
+      ('guitar' 267)
+      ('bass' 364)
+      ('vocals' 353)
+      ('keys' 269)
+      ('real_keys' 327)
+      ('band' 292)
+   )
+   ('genre' 'poprock')
+   ('vocal_gender' 'female')
+   ('version' 1)
+   ('format' 10)
+   ('album_art' 1)
+   ('year_released' 2012)
+   ('rating' 1)
+   ('sub_genre' 'subgenre_other')
+   ('song_id' NLFR_wiiv2)
+   ('tuning_offset_cents' 0)
+   ('guide_pitch_volume' -3.00)
+   ('game_origin' 'ugc_plus')
+   ('encoding' 'latin1')
+   (
+      'album_name'
+      "The Rainbow Colored Album"
+   )
+   ('album_track_number' 1)
+
+;The following values will be read by Visualizer, DO NOT EDIT MANUALLY
+;Song authored by Nightmare Lyre
+;Song=Fluttering Romance
+;CustomID=NLFR_wii
+;Country=United States
+;Language(s)=English,
+;Karaoke=0
+;Multitrack=1
+;Convert=0
+;2xBass=0
+;RhythmKeys=0
+;RhythmBass=0
+;RB3Version=0
+;ExpertOnly=0
+)

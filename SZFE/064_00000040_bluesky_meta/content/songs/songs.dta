@@ -1,0 +1,131 @@
+(
+   'goodbyeblueskyv5'
+   (
+      'name'
+      "Goodbye Blue Sky"
+   )
+   (
+      'artist'
+      "Pink Floyd"
+   )
+   ('master' 1)
+   (
+      'song'
+      (
+         'name'
+         "dlc/sZFE/064/content/songs/bluesky/bluesky"
+      )
+      (
+         'tracks_count'
+         (0 2 2 2 2 2)
+      )
+      (
+         'tracks'
+         (
+            (
+               'bass'
+               (0 1)
+            )
+            (
+               'guitar'
+               (2 3)
+            )
+            (
+               'vocals'
+               (4 5)
+            )
+            (
+               'keys'
+               (6 7)
+            )
+         )
+      )
+      (
+         'pans'
+         (-1.00 1.00 -1.00 1.00 -1.00 1.00 -1.00 1.00 -1.00 1.00)
+      )
+      (
+         'vols'
+         (0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00)
+      )
+      (
+         'cores'
+         (-1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+      )
+      ('vocal_parts' 3)
+      (
+         'drum_solo'
+         (
+            'seqs'
+            ('kick.cue' 'snare.cue' 'tom1.cue' 'tom2.cue' 'crash.cue')
+         )
+      )
+      (
+         'drum_freestyle'
+         (
+            'seqs'
+            ('kick.cue' 'snare.cue' 'hat.cue' 'ride.cue' 'crash.cue')
+         )
+      )
+      (mute_volume -96)
+      (mute_volume_vocals -12)
+      (hopo_threshold 170)
+   )
+   ('song_scroll_speed' 2300)
+   (
+      'bank'
+      "sfx/tambourine_bank.milo"
+   )
+   (drum_bank sfx/kit01_bank.milo)
+   ('anim_tempo' 16)
+   ('song_length' 154414)
+   ('preview' 11000 41000)
+   (
+      'rank'
+      ('drum' 0)
+      ('guitar' 176)
+      ('bass' 1)
+      ('vocals' 175)
+      ('keys' 153)
+      ('real_keys' 153)
+      ('real_guitar' 208)
+      ('real_bass' 1)
+      ('band' 165)
+   )
+   ('genre' 'prog')
+   ('vocal_gender' 'male')
+   ('version' 30)
+   ('format' 10)
+   ('album_art' 1)
+   ('year_released' 1979)
+   ('rating' 1)
+   ('sub_genre' 'subgenre_progrock')
+   ('song_id' goodbyeblueskyv5)
+   ('tuning_offset_cents' -5)
+   ('guide_pitch_volume' -3.00)
+   ('game_origin' 'ugc_plus')
+   ('encoding' 'latin1')
+   (
+      'album_name'
+      "The Wall"
+   )
+   ('album_track_number' 7)
+   (vocal_tonic_note 1)
+   (song_tonality 0)
+   (real_guitar_tuning (0 0 0 0 0 0))
+   (real_bass_tuning (-2 0 0 0))
+
+;The following values will be read by the new Le Fluffie Visualizer, DO NOT EDIT MANUALLY
+;Song authored by Drihscol
+;Song=Goodbye Blue Sky
+;CustomID=goodbyebluesky
+;Language(s)=English,
+;Karaoke=0
+;Multitrack=0
+;Convert=0
+;2xBass=0
+;RhythmKeys=0
+;RhythmBass=0
+;RB3Version=0
+;ExpertOnly=0
+)
