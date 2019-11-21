@@ -1,12 +1,10 @@
-import os,shutil
+import os
 
-for i,filename in enumerate(os.listdir("E:\Dropbox\Projects\Wii Shit\C2GS Library")):
+for i,filename in enumerate(os.listdir("./SZFE")):
     name = filename[13:]
     name2 = filename[14:]
-    for i,filename2 in enumerate(os.listdir("E:\Dropbox\Projects\Wii Shit\sZFE")):
+    for i,filename2 in enumerate(os.listdir("./SZFE")):
         if filename2[13:] == name:
-            print(filename)
+            print('break '+name)
         if filename2[13:] == name2:
-            print(filename)
-
-
+            print('break2 '+name2)
