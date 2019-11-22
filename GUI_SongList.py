@@ -17,10 +17,7 @@ def rename(file_path):
 
 
 
-    for i,filename in enumerate(os.listdir(file_path)):
-    #     for match in enumerate(re.finditer(regex,filename)):
-    #         matches = re.findall(regex, filename, re.MULTILINE)
-    #         print(matches[0])
+    for filename in sorted(os.listdir(file_path)):
         if filename.endswith("_meta") or filename.endswith("_song"):
             new_filename = str(folder_num).zfill(3) + "_" + hex(folder_num).split('x')[-1].zfill(8) + filename[12:]
             os.rename(file_path + filename, file_path + new_filename)
@@ -30,8 +27,9 @@ def rename(file_path):
         if filename.endswith("_meta"):
             f1 = open(file_path + new_filename + "/content/songs/songs.dta","r")
             f2 = open(file_path + new_filename + "/content/songs/songs_new.dta","w")
+            pattern = re.compile(r"sZFE/\d{3}")
             for line in f1:
-                f2.write(line.replace("sZFE/000",text_str))
+                f2.write(re.sub(pattern,"sZFE/"+new_filename[:3],line))
             f1.close()
             f2.close()
             os.remove(file_path + new_filename + "/content/songs/songs.dta")
@@ -79,25 +77,27 @@ def selectfolder():
 # findDuplicates(listSongs())
 
 
-#Parent widget for buttons
-btn = Button(window, text="Select a folder", command=selectfolder)
-btn.grid(column=0, row=0)
+rename("/home/charles/Documents/RockbandTools/sZFE/")
 
-btn2 = Button(window, text="Refresh", command= lambda: display(file_path))
-btn2.grid(column=1, row=0)
-
-box = Checkbutton(window, text="Export to CSV", variable=var)
-box.grid(column=2, row=0, padx=10, pady=10)
-
-btn3 = Button(window, text="Rename", command= lambda:rename(file_path))
-btn3.grid(column=0, row=1)
-
-#Group1 Frame
-window.columnconfigure(0, weight=1)
-window.rowconfigure(1, weight=1)
-
-# Textbox
-messages = tkst.ScrolledText(window, width=60, height=30)
-messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=3)
-
-mainloop()
+# #Parent widget for buttons
+# btn = Button(window, text="Select a folder", command=selectfolder)
+# btn.grid(column=0, row=0)
+#
+# btn2 = Button(window, text="Refresh", command= lambda: display(file_path))
+# btn2.grid(column=1, row=0)
+#
+# box = Checkbutton(window, text="Export to CSV", variable=var)
+# box.grid(column=2, row=0, padx=10, pady=10)
+#
+# btn3 = Button(window, text="Rename", command= lambda:rename(file_path))
+# btn3.grid(column=0, row=1)
+#
+# #Group1 Frame
+# window.columnconfigure(0, weight=1)
+# window.rowconfigure(1, weight=1)
+#
+# # Textbox
+# messages = tkst.ScrolledText(window, width=60, height=30)
+# messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=3)
+#
+# mainloop()
