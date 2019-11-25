@@ -37,24 +37,18 @@ def findDuplicates(list):
         names[song[0]] = song[1]
 
 def display(file_path):
-    list = listSongs(file_path)
     messages.config(state=NORMAL)
     messages.delete(1.0,END)
-    for song in list:
+    for song in listSongs(file_path):
         messages.insert(INSERT,song[0] + " by " + song[1] + "\n")
-        # if var.get() == 1:
-        #     with open('rockband_songs.csv', mode='a', newline='') as output_file:
-        #         rockband_songs = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        #         rockband_songs.writerow([song[0], song[1], song[2]])
-
     messages.config(state=DISABLED)
 
 def listSongs(file_path):
     song_list = []
     pattern_meta = re.compile(".{3}_.{8}_.*_meta")
+    regex = r"(name|artist|album_name)\s*'?\n?\s*(\"[^dlc].*\")"
     for i,filename in enumerate(os.listdir(file_path)):
         for match in re.finditer(pattern_meta,filename):
-            regex = r"(name|artist|album_name)\s*'?\n?\s*(\"[^dlc].*\")"
             with open(file_path + filename + "/content/songs/songs.dta","r") as f:
                 data = f.read().strip()
                 matches = re.findall(regex, data, re.MULTILINE)
@@ -72,9 +66,6 @@ def exportCSV(file_path):
         with open('rockband_songs.csv', mode='a', newline='') as output_file:
             rockband_songs = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             rockband_songs.writerow([song[0], song[1], song[2]])
-
-# file_path='/home/charles/Documents/RockbandTools/SZFE/'
-# findDuplicates(listSongs())
 
 #Parent widget for buttons
 btn = Button(window, text="Select a folder", command=selectfolder)
