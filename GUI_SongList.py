@@ -10,13 +10,7 @@ var = IntVar()
 var.set(0)
 
 def rename(file_path):
-    #num_folders = len(os.walk(file_path).next()[1])
-    #folder_num = raw_input("What number should I start with? ")
     folder_num = 56
-    #regex = r"\d{3}_\d{8}_.*_(meta|song)"
-
-
-
     for filename in sorted(os.listdir(file_path)):
         if filename.endswith("_meta") or filename.endswith("_song"):
             new_filename = str(folder_num).zfill(3) + "_" + hex(folder_num).split('x')[-1].zfill(8) + filename[12:]
@@ -48,10 +42,10 @@ def display(file_path):
     messages.delete(1.0,END)
     for song in list:
         messages.insert(INSERT,song[0] + " by " + song[1] + "\n")
-        if var.get() == 1:
-            with open('rockband_songs.csv', mode='a', newline='') as output_file:
-                rockband_songs = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                rockband_songs.writerow([song[0], song[1], song[2]])
+        # if var.get() == 1:
+        #     with open('rockband_songs.csv', mode='a', newline='') as output_file:
+        #         rockband_songs = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        #         rockband_songs.writerow([song[0], song[1], song[2]])
 
     messages.config(state=DISABLED)
 
@@ -73,31 +67,34 @@ def selectfolder():
     btn.configure(text=file_path)
     display(file_path)
 
+def exportCSV(file_path):
+    for song in listSongs(file_path):
+        with open('rockband_songs.csv', mode='a', newline='') as output_file:
+            rockband_songs = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            rockband_songs.writerow([song[0], song[1], song[2]])
+
 # file_path='/home/charles/Documents/RockbandTools/SZFE/'
 # findDuplicates(listSongs())
 
+#Parent widget for buttons
+btn = Button(window, text="Select a folder", command=selectfolder)
+btn.grid(column=0, row=0)
 
-rename("/home/charles/Documents/RockbandTools/sZFE/")
+btn2 = Button(window, text="Refresh", command= lambda: display(file_path))
+btn2.grid(column=1, row=0)
 
-# #Parent widget for buttons
-# btn = Button(window, text="Select a folder", command=selectfolder)
-# btn.grid(column=0, row=0)
-#
-# btn2 = Button(window, text="Refresh", command= lambda: display(file_path))
-# btn2.grid(column=1, row=0)
-#
-# box = Checkbutton(window, text="Export to CSV", variable=var)
-# box.grid(column=2, row=0, padx=10, pady=10)
-#
-# btn3 = Button(window, text="Rename", command= lambda:rename(file_path))
-# btn3.grid(column=0, row=1)
-#
-# #Group1 Frame
-# window.columnconfigure(0, weight=1)
-# window.rowconfigure(1, weight=1)
-#
-# # Textbox
-# messages = tkst.ScrolledText(window, width=60, height=30)
-# messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=3)
-#
-# mainloop()
+box = Button(window, text="Export to CSV", command= lambda: exportCSV(file_path))
+box.grid(column=2, row=0, padx=10, pady=10)
+
+btn3 = Button(window, text="Rename", command= lambda:rename(file_path))
+btn3.grid(column=0, row=1)
+
+#Group1 Frame
+window.columnconfigure(0, weight=1)
+window.rowconfigure(1, weight=1)
+
+# Textbox
+messages = tkst.ScrolledText(window, width=60, height=30)
+messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=3)
+
+mainloop()
