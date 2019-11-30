@@ -1,43 +1,47 @@
 # TODO:
 #       Implement os.path.join() for cross OS functionality
 #       Better error handling
-#       in rename(), option to create copy or modify in place
 
 import os,io,re,csv
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 import tkinter.scrolledtext as tkst
+from shutil import copytree
 
 window = Tk()
 window.title("Rockband Song List")
+window.iconbitmap()
 
 var = IntVar()
 var.set(0)
 
 def rename(file_path):
-    result = messagebox.askyesno("Are you sure?", "This will overwrite your existing files. Do you want to continue?")
-    if result == True:
-        folder_num = 56
-        for filename in sorted(os.listdir(file_path)):
-            if filename.endswith("_meta") or filename.endswith("_song"):
-                new_filename = str(folder_num).zfill(3) + "_" + hex(folder_num).split('x')[-1].zfill(8) + filename[12:]
-                os.rename(file_path + filename, file_path + new_filename)
-                text_str = "sZFE/" + str(folder_num).zfill(3)
-                folder_num += 1
-
-            if filename.endswith("_meta"):
-                f1 = open(file_path + new_filename + "/content/songs/songs.dta","r")
-                f2 = open(file_path + new_filename + "/content/songs/songs_new.dta","w")
-                pattern = re.compile(r"sZFE/\d{3}")
-                for line in f1:
-                    f2.write(re.sub(pattern,"sZFE/"+new_filename[:3],line))
-                f1.close()
-                f2.close()
-                os.remove(file_path + new_filename + "/content/songs/songs.dta")
-                os.rename(file_path + new_filename + "/content/songs/songs_new.dta",file_path + new_filename + "/content/songs/songs.dta")
-    else:
+    result = messagebox.askyesnocancel("Are you sure?", "Do you want to make a copy of your files? Press Yes to make copies, No to overwrite.")
+    if result == None:
         messagebox.showinfo("Cancelled", "Operation Cancelled")
+        return
+    elif result == True:
+        copytree(file_path,os.path.join(file_path,"old"))
+
+    folder_num = 56
+    for filename in sorted(os.listdir(file_path)):
+        if filename.endswith("_meta") or filename.endswith("_song"):
+            new_filename = str(folder_num).zfill(3) + "_" + hex(folder_num).split('x')[-1].zfill(8) + filename[12:]
+            os.rename(file_path + filename, file_path + new_filename)
+            text_str = "sZFE/" + str(folder_num).zfill(3)
+            folder_num += 1
+
+        if filename.endswith("_meta"):
+            f1 = open(file_path + new_filename + "/content/songs/songs.dta","r")
+            f2 = open(file_path + new_filename + "/content/songs/songs_new.dta","w")
+            pattern = re.compile(r"sZFE/\d{3}")
+            for line in f1:
+                f2.write(re.sub(pattern,"sZFE/"+new_filename[:3],line))
+            f1.close()
+            f2.close()
+            os.remove(file_path + new_filename + "/content/songs/songs.dta")
+            os.rename(file_path + new_filename + "/content/songs/songs_new.dta",file_path + new_filename + "/content/songs/songs.dta")
 
 def findDuplicates(list):
     names = {}
