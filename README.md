@@ -1,6 +1,6 @@
 This is a project for EE551: Engineering Programming Python
 
-This project will include a series of tools to be used with RockBand 3 for Wii. (I realize this is a niche application, so I will explain what this will entail.)
+This project includes a series of tools to be used with RockBand 3 for Wii. (I realize this is a niche application, so I will explain what this entails.)
 
 Background:
   It is possible to play custom songs on Rockband 3 for Wii, but there are several tedious steps that must be done manually for each song in order to be recognized by the software on the Wii. My goal is to automate the process for a batch of songs, with error checking.
@@ -14,10 +14,12 @@ Background:
 
   3. Songs must be copied to an external drive to be read by the Wii
 
-My goal in this project includes several functions:
-  1. It will edit files and file names in order to be read by the Wii's file system
-  2. It will check for duplicate songs
-  3. It will automatically copy these files to an external USB device
-  4. It will automatically convert filetypes to be read by the Wii
-  5. It will be able to list all songs installed and sort (by name, artist, track length, etc.)
-  6. It will have both a GUI and a CLI to achieve these functions (written either in PyQt or Tkinter)
+My application includes several functions:
+  1. It can edit files and file names in order to be read by the Wii's file system
+  2. It can check for duplicate songs
+  3. It can copy these files to an external USB device
+  4. It can automatically convert filetypes to be read by the Wii
+  5. It can list all songs installed and sort (by name, artist, track length, etc.)
+  6. It has both a GUI (written in Tkinter) and a CLI to achieve these functions
+
+This program was written and tested in Linux. It should work on MacOS due to their similarity, but I do not have access to a Mac for testing, so I am unable to verify.
