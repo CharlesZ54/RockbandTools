@@ -1,7 +1,7 @@
 # TODO:
 #       Implement os.path.join() for cross OS functionality
-#       Export to folder
 #       Better error handling
+#       Add findDuplicate UI and CLI
 
 import os,io,re,csv
 from tkinter import *
@@ -10,7 +10,7 @@ from tkinter import messagebox
 import tkinter.scrolledtext as tkst
 from shutil import copytree
 
-def rename(file_path):
+def rename(file_path,backup=None):
     if __name__ == "__main__": #If executed as main program
         result = messagebox.askyesnocancel("Are you sure?", "Do you want to make a backup of your files before editing? Press Yes to backup, No to overwrite.")
         if result == None:
@@ -19,14 +19,17 @@ def rename(file_path):
         elif result == True:
             copytree(file_path,os.path.join(file_path,"old"))
     else:
-        result = input("Do you want to create a backup of your files before editing?")
-        if result.lower().startswith("n"):
-            print("Operation Cancelled")
-        elif result.lower().startswith("y"):
-            copytree(file_path,os.path.join(file_path,"old"))
+        if backup == None:
+            result = input("Do you want to create a backup of your files before editing?")
+            if result.lower().startswith("n"):
+                print("Operation Cancelled")
+            elif result.lower().startswith("y"):
+                copytree(file_path,os.path.join(file_path,"old"))
+            else:
+                print("Unknown entry. Please type 'y' or 'n'.")
+                return
         else:
-            print("Unknown entry. Please type 'y' or 'n'.")
-            return
+            pass
 
     folder_num = 56
     for filename in sorted(os.listdir(file_path)):
@@ -49,10 +52,13 @@ def rename(file_path):
 
 def findDuplicates(list):
     names = {}
+    duplicates = []
     for song in list:
         if song[0] in names:
-            print("Found Duplicate of: " + song[0])
+            #print("Found Duplicate of: " + song[0])
+            duplicates.append(song[0])
         names[song[0]] = song[1]
+    return(duplicates)
 
 def display(file_path):
     if __name__ == "__main__":
@@ -62,9 +68,12 @@ def display(file_path):
             messages.insert(INSERT,song[0] + " by " + song[1] + "\n")
         messages.config(state=DISABLED)
     else:
+        lines = []
         for song in listSongs(file_path):
-            print("* " + song[0] + " by " + song[1] + "\n")
-
+            if __name__ == "__main__":
+                print("* " + song[0] + " by " + song[1] + "\n")
+            lines.append(song[0])
+        return(lines)
 
 def listSongs(file_path):
     song_list = []
@@ -86,6 +95,7 @@ def selectFolder():
         display(file_path)
     else:
         file_path = input("Enter the folder path: ")
+    return file_path
 
 
 def exportCSV(file_path):
@@ -106,6 +116,15 @@ def exportCSV(file_path):
         else:
             print("Error, unable to create file")
 
+def copySongs(src,dst=None):
+    if __name__ == "__main__":
+        export_path = filedialog.askdirectory()+"/"
+    elif dst == None:
+        export_path = input("Enter the folder path: ")
+    else:
+        export_path = dst
+    copytree(src,os.path.join(export_path,"export"))
+
 if __name__ == "__main__":
     window = Tk()
     window.title("Rockband Song List")
@@ -113,39 +132,42 @@ if __name__ == "__main__":
     var.set(0)
     #Parent widget for buttons
     btn = Button(window, text="Select a folder", command=selectFolder)
-    btn.grid(column=0, row=0, padx=10, pady=10)
+    btn.grid(column=0, row=0, sticky = E+W+N+S)
 
     btn2 = Button(window, text="Refresh", command= lambda: display(file_path))
-    btn2.grid(column=1, row=0, padx=10, pady=10)
+    btn2.grid(column=3, row=0, sticky = E+W+N+S)
 
     box = Button(window, text="Export to CSV", command= lambda: exportCSV(file_path))
-    box.grid(column=2, row=0, padx=10, pady=10)
+    box.grid(column=3, row=2, sticky = E+W+N+S)
 
     btn3 = Button(window, text="Rename", command= lambda:rename(file_path))
-    btn3.grid(column=0, row=1)
+    btn3.grid(column=3, row=3, sticky = E+W+N+S)
+
+    btn4 = Button(window, text="Copy to folder", command= lambda:copySongs(file_path))
+    btn4.grid(column=3,row=4, sticky = E+W+N+S)
 
     #Group1 Frame
     window.columnconfigure(0, weight=1)
-    window.rowconfigure(1, weight=1)
+    window.rowconfigure(0, weight=1)
 
     # Textbox
     messages = tkst.ScrolledText(window, width=60, height=30)
-    messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=3)
+    messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=1, rowspan=3)
 
     mainloop()
 
-else:
-    selectFolder()
-    while True:
-        print("""
-        1. Display songs
-        2. Export list as CSV
-        3. Rename songs
-        """)
-        ans = input("What would you like to do? ")
-        if ans=="1":
-            display(file_path)
-        elif ans=="2":
-            exportCSV(file_path)
-        elif ans=="3":
-            rename(file_path)
+# else:
+#     selectFolder()
+#     while True:
+#         print("""
+#         1. Display songs
+#         2. Export list as CSV
+#         3. Rename songs
+#         """)
+#         ans = input("What would you like to do? ")
+#         if ans=="1":
+#             display(file_path)
+#         elif ans=="2":
+#             exportCSV(file_path)
+#         elif ans=="3":
+#             rename(file_path)
