@@ -1,6 +1,6 @@
 This is the pytest file used for code testing.
 
-You can execute the test by running `pytest pytest.py` in this directory.
+You can execute the test by running `pytest test_code.py` in this directory.
 
 This tests the functionality of the following functions in the main program:
 * Finding duplicate songs
