@@ -2,6 +2,7 @@ import pytest
 from program import *
 import os
 import shutil
+import collections
 
 def test_findDuplicates():
     expected = ['Hotel California']
@@ -11,12 +12,12 @@ def test_findDuplicates():
 def test_display():
     expected = ['Goodbye Blue Sky', 'Hotel California', 'Hotel California', 'Fluttering Romance', 'Born to Run']
     result = display("./sZFE/")
-    assert result == expected
+    assert collections.Counter(result) == collections.Counter(expected)
 
 def test_listSongs():
     expected = [['Goodbye Blue Sky', 'Pink Floyd', 'The Wall'], ['Hotel California', 'The Eagles', 'Hotel California'], ['Hotel California', 'The Eagles', 'Hotel California'], ['Fluttering Romance', 'Nightmare Lyre', 'The Rainbow Colored Album'], ['Born to Run', 'Bruce Springsteen', 'Born To Run']]
     result = listSongs("./sZFE/")
-    assert result == expected
+    assert result.sort() == expected.sort()
 
 def test_exportCSV():
     exportCSV("./sZFE/")
