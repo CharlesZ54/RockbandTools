@@ -23,3 +23,8 @@ My application includes several functions:
   6. It has both a GUI (written in Tkinter) and a CLI to achieve these functions
 
 This program was written and tested in Linux. It should work on MacOS due to their similarity, but I do not have access to a Mac for testing, so I am unable to verify.
+You will need to install the following packages to your system:
+	pip (python3-pip on Ubuntu)
+	Tkinter (python3-tk on Ubuntu)
+	pytest (python3-pytest on Ubuntu)
+Please note that your system may use different package names for the same programs.
