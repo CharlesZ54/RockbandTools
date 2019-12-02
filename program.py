@@ -5,7 +5,7 @@ from tkinter import messagebox
 import tkinter.scrolledtext as tkst
 from shutil import copytree
 
-def rename(file_path,backup=None):
+def rename(file_path,backup=None): #Renames folders and line in song.dta files
     if __name__ == "__main__": #If executed as main program
         result = messagebox.askyesnocancel("Are you sure?", "Do you want to make a backup of your files before editing? Press Yes to backup, No to overwrite.")
         if result == None:
@@ -13,7 +13,7 @@ def rename(file_path,backup=None):
             return
         elif result == True:
             copytree(file_path,os.path.join(file_path,"old"))
-    else:
+    else: #If executed from another program
         if backup == None:
             result = input("Do you want to create a backup of your files before editing?")
             if result.lower().startswith("n"):
@@ -26,15 +26,15 @@ def rename(file_path,backup=None):
         else:
             pass
 
-    folder_num = 56
-    for filename in sorted(os.listdir(file_path)):
+    folder_num = 56 #Initial folder number
+    for filename in sorted(os.listdir(file_path)): #Edit folder name
         if filename.endswith("_meta") or filename.endswith("_song"):
-            new_filename = str(folder_num).zfill(3) + "_" + hex(folder_num).split('x')[-1].zfill(8) + filename[12:]
+            new_filename = str(folder_num).zfill(3) + "_" + hex(folder_num).split('x')[-1].zfill(8) + filename[12:] #Creates new folder name from existing information
             os.rename(file_path + filename, file_path + new_filename)
             text_str = "sZFE/" + str(folder_num).zfill(3)
             folder_num += 1
 
-        if filename.endswith("_meta"):
+        if filename.endswith("_meta"): #Edit line in file
             f1 = open(file_path + new_filename + "/content/songs/songs.dta","r")
             f2 = open(file_path + new_filename + "/content/songs/songs_new.dta","w")
             pattern = re.compile(r"sZFE/\d{3}")
@@ -45,7 +45,7 @@ def rename(file_path,backup=None):
             os.remove(file_path + new_filename + "/content/songs/songs.dta")
             os.rename(file_path + new_filename + "/content/songs/songs_new.dta",file_path + new_filename + "/content/songs/songs.dta")
 
-def findDuplicates(list):
+def findDuplicates(list): #Find duplicate songs in folder
     names = {}
     duplicates = []
     for song in list:
@@ -61,7 +61,7 @@ def findDuplicates(list):
 
     return(duplicates)
 
-def display(file_path):
+def display(file_path): #Sends songs and artist names to GUI or CLI
     if __name__ == "__main__":
         messages.config(state=NORMAL)
         messages.delete(1.0,END)
@@ -76,7 +76,7 @@ def display(file_path):
             lines.append(song[0])
         return(lines)
 
-def listSongs(file_path):
+def listSongs(file_path): #Creates a list of songs in folder
     song_list = []
     pattern_meta = re.compile(".{3}_.{8}_.*_meta")
     regex = r"(name|artist|album_name)\s*'?\n?\s*(\"[^dlc].*\")"
@@ -88,7 +88,7 @@ def listSongs(file_path):
                 song_list.append([matches[0][1][1:-1],matches[1][1][1:-1],matches[2][1][1:-1]])
     return song_list
 
-def selectFolder():
+def selectFolder(): #PRompts user to select a folder
     global file_path
     if __name__ == "__main__":
         file_path = filedialog.askdirectory()+"/"
@@ -99,25 +99,25 @@ def selectFolder():
     return file_path
 
 
-def exportCSV(file_path):
+def exportCSV(file_path): #Export song,artist,album into CSV format
     for song in listSongs(file_path):
         with open('rockband_songs.csv', mode='a', newline='') as output_file:
             rockband_songs = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             rockband_songs.writerow([song[0], song[1], song[2]])
     print(os.path.isfile(os.getcwd() + "/rockband_songs.csv"))
     print(os.getcwd())
-    if os.path.isfile(os.getcwd() + "/rockband_songs.csv")==True:
+    if os.path.isfile(os.getcwd() + "/rockband_songs.csv")==True: #Check to make sure operation was successful
         if __name__ == "__main__":
             messagebox.showinfo("Success", "File saved to " + os.getcwd() + "/rockband_songs.csv")
         else:
             print("Success! File saved to" + os.getcwd() + "/rockband_songs.csv")
-    else:
+    else: #If error
         if __name__ == "__main__":
             messagebox.showerror("Error", "Unable to create file")
         else:
             print("Error, unable to create file")
 
-def copySongs(src,dst=None):
+def copySongs(src,dst=None): #Copy songs to a user specified directory
     if __name__ == "__main__":
         export_path = filedialog.askdirectory()+"/"
     elif dst == None:
@@ -126,11 +126,12 @@ def copySongs(src,dst=None):
         export_path = dst
     copytree(src,os.path.join(export_path,"export"))
 
-if __name__ == "__main__":
+if __name__ == "__main__": #Creates GUI if run as its own program
     window = Tk()
     window.title("Rockband Song List")
     var = IntVar()
     var.set(0)
+    
     #Parent widget for buttons
     btn = Button(window, text="Select a folder", command=selectFolder)
     btn.grid(column=0, row=0, sticky = E+W+N+S)
@@ -159,19 +160,3 @@ if __name__ == "__main__":
     messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=1, rowspan=4)
 
     mainloop()
-
-# else:
-#     selectFolder()
-#     while True:
-#         print("""
-#         1. Display songs
-#         2. Export list as CSV
-#         3. Rename songs
-#         """)
-#         ans = input("What would you like to do? ")
-#         if ans=="1":
-#             display(file_path)
-#         elif ans=="2":
-#             exportCSV(file_path)
-#         elif ans=="3":
-#             rename(file_path)
