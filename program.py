@@ -1,8 +1,3 @@
-# TODO:
-#       Implement os.path.join() for cross OS functionality
-#       Better error handling
-#       Add findDuplicate UI and CLI
-
 import os,io,re,csv
 from tkinter import *
 from tkinter import filedialog
@@ -55,9 +50,15 @@ def findDuplicates(list):
     duplicates = []
     for song in list:
         if song[0] in names:
-            #print("Found Duplicate of: " + song[0])
             duplicates.append(song[0])
         names[song[0]] = song[1]
+    if __name__ == "__main__":
+        messages.config(state=NORMAL)
+        messages.delete(1.0,END)
+        for song in duplicates:
+            messages.insert(INSERT,"Found Duplicate of: " + song + "\n")
+        messages.config(state=DISABLED)
+
     return(duplicates)
 
 def display(file_path):
@@ -146,13 +147,16 @@ if __name__ == "__main__":
     btn4 = Button(window, text="Copy to folder", command= lambda:copySongs(file_path))
     btn4.grid(column=3,row=4, sticky = E+W+N+S)
 
+    btn5 = Button(window, text="Check for Duplicates", command= lambda:findDuplicates(listSongs(file_path)))
+    btn5.grid(column=3,row=5,sticky = E+W+N+S)
+
     #Group1 Frame
     window.columnconfigure(0, weight=1)
     window.rowconfigure(0, weight=1)
 
     # Textbox
     messages = tkst.ScrolledText(window, width=60, height=30)
-    messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=1, rowspan=3)
+    messages.grid(row=2,column=0, sticky = E+W+N+S, columnspan=1, rowspan=4)
 
     mainloop()
 
