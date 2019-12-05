@@ -131,7 +131,7 @@ if __name__ == "__main__": #Creates GUI if run as its own program
     window.title("Rockband Song List")
     var = IntVar()
     var.set(0)
-    
+
     #Parent widget for buttons
     btn = Button(window, text="Select a folder", command=selectFolder)
     btn.grid(column=0, row=0, sticky = E+W+N+S)
@@ -154,6 +154,7 @@ if __name__ == "__main__": #Creates GUI if run as its own program
     #Group1 Frame
     window.columnconfigure(0, weight=1)
     window.rowconfigure(0, weight=1)
+    window.resizable(False,False)
 
     # Textbox
     messages = tkst.ScrolledText(window, width=60, height=30)
